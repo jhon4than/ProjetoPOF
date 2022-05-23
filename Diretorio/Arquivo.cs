@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,13 @@ namespace ProjetoPOF.Diretorio
 {
     internal class Arquivo
     {
+        private static string caminhoArquivo()
+        {
+            return ConfigurationManager.AppSettings["caminho_arquivos"];
+        }
         public static void Ler(int numeroArquivo)
         {
-            string arquivoComCaminho = @"C:\arquivos\arquivo" + numeroArquivo + ".txt";
+            string arquivoComCaminho = caminhoArquivo() + "arquivo" + numeroArquivo + ".txt";
 
             if (File.Exists(arquivoComCaminho))
             {
