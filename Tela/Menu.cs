@@ -29,6 +29,7 @@ namespace ProjetoPOF.Tela
                     "\n      2 - Para executar a tabuada" +
                     "\n      3 - Calcular média de alunos" +
                     "\n      4 - Limpar Tela";
+
                 Console.WriteLine(mensagem);
 
                 int valor = int.Parse(Console.ReadLine());

@@ -15,14 +15,13 @@ namespace Classes
         public string CPF;
 
         /// <summary>
-        /// Construtor da classe
+        /// Construtor da classe com todos os parâmetros
         /// </summary>
         /// <param name="nome">Para preencher o nome do objeto</param>
         /// <param name="telefone">Para preencher o telefone do objeto</param>
         /// <param name="CPF">Para preencher o CPF Do objeto</param>
         public Cliente(string nome, string telefone, string CPF)
         {
-            //Construtor vazio
             //this.Nome = "Jhonathan";
             this.Nome = nome;
             this.Telefone = telefone;
@@ -35,7 +34,19 @@ namespace Classes
         public Cliente() { }
         public void Gravar()
         {
+            var clientes = Cliente.LerClientes();
+            clientes.Add(this);
 
+            if (File.Exists(caminhoBaseClientes()))
+            {
+                var conteudo = "nome;telefone;cpf;\n";
+                foreach(Cliente c in clientes)
+                {
+                    conteudo += c.Nome + ";" + c.Telefone + ";" + c.CPF + ";\n";
+                }
+
+                File.WriteAllText(caminhoBaseClientes(), conteudo);
+            }
         }
         private static string caminhoBaseClientes()
         {
@@ -55,10 +66,15 @@ namespace Classes
                         i++;
                         if (i == 1) continue;
                         var clienteArquivo = linha.Split(';');
-                        var cliente = new Cliente();
-                        cliente.Nome = clienteArquivo[0];
-                        cliente.Telefone = clienteArquivo[1];
-                        cliente.CPF = clienteArquivo[2];
+
+                        var cliente = new Cliente (clienteArquivo[0], clienteArquivo[1], clienteArquivo[2]);
+
+                            /*var cliente = new Cliente
+                            {
+                                Nome = clienteArquivo[0], 
+                                Telefone = clienteArquivo[1], 
+                                CPF = clienteArquivo[2]
+                            };*/
 
                         clientes.Add(cliente);
                     }
