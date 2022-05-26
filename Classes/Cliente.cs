@@ -39,13 +39,15 @@ namespace Classes
 
             if (File.Exists(caminhoBaseClientes()))
             {
-                var conteudo = "nome;telefone;cpf;\n";
+                StreamWriter sw = new StreamWriter(caminhoBaseClientes());
+                sw.WriteLine("nome;telefone;cpf;");
                 foreach(Cliente c in clientes)
                 {
-                    conteudo += c.Nome + ";" + c.Telefone + ";" + c.CPF + ";\n";
+                    var linha = c.Nome + ";" + c.Telefone + ";" + c.CPF + ";";
+                    sw.WriteLine(linha);
                 }
 
-                File.WriteAllText(caminhoBaseClientes(), conteudo);
+                sw.Close();
             }
         }
         private static string caminhoBaseClientes()
